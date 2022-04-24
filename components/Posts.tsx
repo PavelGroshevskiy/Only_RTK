@@ -9,7 +9,7 @@ const Posts = () => {
     (state) => state.postReducer
   );
   const [query, setQuery] = useState({ search: "", type: "" });
-  const [typingTimeout, setTypingTimeout] = useState();
+  const [typingTimeout, setTypingTimeout] = useState<any>();
 
   useEffect(() => {
     dispatch(fetchPosts(query));
@@ -23,11 +23,12 @@ const Posts = () => {
     const timeout: NodeJS.Timeout = setTimeout(() => {
       dispatch(fetchPosts(setQuery({ ...query, search: target })));
     }, 1000);
-    setTypingTimeout(timeout);
+    setTypingTimeout(() => timeout);
   };
 
   return (
     <>
+      <h1>List of posts</h1>
       <input type="text" value={value} onChange={onChange} />
       <button onClick={() => setQuery({ ...query, type: "event" })}>
         Event
