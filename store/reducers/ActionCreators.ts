@@ -1,11 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getStaticProps = async (query: any) => {
-  // query = {
-  //   search: "",
-  //   type: "new",
-  // };
-
   const response = await fetch(
     `https://dev.retnback.only.com.ru/api/news/list?search=` +
       query.search +

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { fetchPosts } from "../store/reducers/ActionCreators";
 
@@ -9,15 +9,21 @@ const Posts = () => {
     (state) => state.postReducer
   );
   const [query, setQuery] = useState({ search: "", type: "" });
-  const timer = useRef();
+  const [typingTimeout, setTypingTimeout] = useState();
 
   useEffect(() => {
     dispatch(fetchPosts(query));
   }, [query]);
 
   const onChange = (e: any) => {
-    setValue(e.target.value);
-    dispatch(fetchPosts(setQuery({ ...query, search: e.target.value }))); //Попробовать здесь реализовать логику дебоунса
+    const target = e.target.value;
+    setValue(target);
+
+    clearTimeout(typingTimeout);
+    const timeout: NodeJS.Timeout = setTimeout(() => {
+      dispatch(fetchPosts(setQuery({ ...query, search: target })));
+    }, 1000);
+    setTypingTimeout(timeout);
   };
 
   return (
