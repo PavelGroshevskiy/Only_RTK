@@ -4,10 +4,10 @@ import { Provider } from "react-redux";
 import { setUpStore } from "../store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const store = setUpStore();
+  const initialReduxState = setUpStore();
 
   return (
-    <Provider store={store}>
+    <Provider store={initialReduxState}>
       <Component {...pageProps} />
     </Provider>
   );

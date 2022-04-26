@@ -15,13 +15,6 @@ export const getStaticProps = async (query: any) => {
     };
   }
   return posts.data;
-  //   return {
-  //     props: {
-  //       initialReduxState: {
-  //         posts: posts.data,
-  //       },
-  //     },
-  //   };
 };
 
 export const fetchPosts = createAsyncThunk("post/fetch", getStaticProps);
